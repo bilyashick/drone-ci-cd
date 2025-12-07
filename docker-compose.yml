@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  drone_core:
+    build: .
+    container_name: drone_core
+    command: pytest -v
+    networks:
+      - drone_network
+
+  controller_emulator:
+    image: python:3.11-slim
+    container_name: controller_emulator
+    command: >
+      sh -c "echo 'Controller emulator running (імітація звʼязку з контролером)' && sleep infinity"
+    networks:
+      - drone_network
+
+networks:
+  drone_network:
+    driver: bridge
